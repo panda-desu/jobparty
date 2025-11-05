@@ -1,7 +1,7 @@
-"use client";
+"use client"; 
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState,  } from "react";
+import { useState } from "react";
 import data from ".././json/topic.json";
 
 type Question = {
@@ -45,13 +45,25 @@ export default function Detail() {
 
   return (
     <div className="p-6 bg-gray-900 min-h-screen flex flex-col items-center justify-center text-white">
-      {/* Back Button */}
-     
+      {/* Back + Show Answer Buttons */}
+      <div className="flex items-center gap-6 mb-4">
+        <button
+          onClick={() => router.back()}
+          className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white transition"
+        >
+          ← Back
+        </button>
+        <button
+          onClick={handleShowAnswer}
+          className="px-6 py-2 bg-blue-700 hover:bg-blue-600 rounded transition"
+        >
+          {showAnswer ? "Hide Answer" : "Show Answer"}
+        </button>
+      </div>
 
       <h1 className="text-3xl font-bold mb-4">{topic}</h1>
       <p className="text-2xl mb-4">{question.question}</p>
 
-      {/* Options */}
       {question.options && (
         <ul className="list-disc pl-8 text-xl mb-4">
           {question.options.map((opt, idx) => (
@@ -60,21 +72,6 @@ export default function Detail() {
         </ul>
       )}
 
-      {/* Show Answer Button */}
-      <div className="flex items-center gap-6"> <button
-        onClick={() => router.back()}
-        className="self-start mb-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white transition"
-      >
-        ← Back
-      </button>
-      <button
-        onClick={handleShowAnswer}
-        className="mb-4 px-6 py-2 bg-blue-700 hover:bg-blue-600 rounded transition"
-      >
-        {showAnswer ? "Hide Answer" : "Show Answer"}
-      </button></div>
-
-      {/* Answer */}
       {showAnswer && (
         <p className="text-green-400 text-2xl font-semibold">{question.answer}</p>
       )}
